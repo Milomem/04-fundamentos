@@ -8,8 +8,8 @@ import { AnswerAttachmentList } from '../../enterprise/entities/answer-attachmen
 interface AnswerQuestionUseCaseRequest {
   instructorId: string
   questionId: string
-  content: string
   attachmentsIds: string[]
+  content: string
 }
 
 type AnswerQuestionUseCaseResponse = Either<
@@ -30,8 +30,8 @@ export class AnswerQuestionUseCase {
   }: AnswerQuestionUseCaseRequest): Promise<AnswerQuestionUseCaseResponse> {
     const answer = Answer.create({
       content,
-      questionId: new UniqueEntityId(questionId),
       authorId: new UniqueEntityId(instructorId),
+      questionId: new UniqueEntityId(questionId),
     })
 
     const answerAttachments = attachmentsIds.map((attachmentId) => {
@@ -45,6 +45,8 @@ export class AnswerQuestionUseCase {
 
     await this.answerRepository.create(answer)
 
-    return right({ answer })
+    return right({
+      answer,
+    })
   }
 }

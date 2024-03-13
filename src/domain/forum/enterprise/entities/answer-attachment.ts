@@ -12,7 +12,7 @@ export class AnswerAttachment extends Entity<AnswerAttachmentProps> {
   }
 
   get attachmentId() {
-    return this.props.answerId
+    return this.props.attachmentId
   }
 
   static create(props: AnswerAttachmentProps, id?: UniqueEntityId) {
